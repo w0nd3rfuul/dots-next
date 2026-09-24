@@ -1,4 +1,4 @@
-# [ SWRNEKO // DOTS_NEXT ]
+# [ [AUTHOR](https://github.com/swrneko) OF THIS DOTS IS SWRNEKO ] 
 
 ### Arch Linux / Hyprland / Noctalia Shell
 A minimal, efficiency-oriented desktop environment configuration with a focus on clean aesthetics and smooth Wayland performance.
