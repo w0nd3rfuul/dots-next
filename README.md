@@ -25,12 +25,14 @@ Use `pacman` to install the system core:
 
 ```bash
 sudo pacman -S --needed \
-    hyprland hyprlock \
+    hyprland hyprpm hyprlock \
     xdg-desktop-portal-hyprland xdg-desktop-portal-gtk \
-    xorg-xwayland \
+    xorg-xwayland xorg-xrdb xembedsniproxy \
     grim slurp wl-clipboard \
     brightnessctl playerctl wireplumber \
-    kitty nemo btop ttf-0xproto-nerd
+    kitty nemo btop ttf-0xproto-nerd \
+    cpupower python-pipx git base-devel \
+    noctalia
 ```
 
 **Why these are important:**
@@ -40,24 +42,35 @@ sudo pacman -S --needed \
 
 ### External Modules (AUR)
 These components should be installed via an AUR helper (e.g., `yay` or `paru`):
-1.  **Noctalia Shell:** [Installation Guide](https://github.com/noctalia-dev/noctalia-shell). The heart of the UI (panels, widgets, and launcher).
-2.  **Zen Browser:** My primary browser. You can change this to your preferred browser in the `hyprland.conf` file.
+1.  **Noctalia Shell:** [Installation Guide](https://docs.noctalia.dev/noctalia/getting-started/installation/). The heart of the UI (panels, widgets, and launcher).
+2.  **Zen Browser:** My primary browser. You can change this to your preferred browser in the `hyprland.lua` file.
 
 ---
 
 ## 🚀 02. Installation Procedure
 
-I recommend a manual installation to ensure full control over your configuration files.
+I recommend a automated installation because it has a backup process to prevent any loss data way.
+
+### Option A: Automated (Recommended)
+Clone the repo to your home directory:
+```bash
+git clone https://github.com/w0nd3rfuul/dots-next.git
+cd dots-next
+chmod +x install.sh
+./install.sh
+```
+
+### Option B: Manual Installation
 
 ### Step 1: Clone the Repository
 Clone the dots into your home directory:
 ```bash
-git clone https://github.com/swrneko/dots-next.git
+git clone https://github.com/w0nd3rfuul/dots-next.git
 cd dots-next
 ```
 
 ### Step 2: System Backup (Safety First)
-Before applying the dots, we will move your existing configurations to a backup folder to prevent any data loss.
+Before applying the dots, it's better to move your existing configurations to a backup folder to prevent any data loss.
 ```bash
 # Create a backup directory
 mkdir -p ~/dotfiles_backup
@@ -82,12 +95,8 @@ After copying the files, you **must** adjust a few settings to match your hardwa
 
 ### 1. Display Configuration
 Hyprland needs to know your monitor's resolution and refresh rate.
-1. Open the config: `nano ~/.config/hypr/hyprland.conf`
-2. Locate the `DISPLAYS` section.
-3. The default is set to: `monitor=,preferred,auto,auto`
-4. If you have a specific monitor (e.g., 144Hz or 4K), modify it accordingly. 
-   Example for a 2K 144Hz monitor: `monitor=DP-1, 2560x1440@144, 0x0, 1`
-   *(Run `hyprctl monitors` in your terminal to find your output name).*
+1. Open the config: `nano ~/.config/hypr/hyprland.lua`
+2. Locate the `hl.monitor` section.
 
 ### 2. NVIDIA Support
 Hyprland works best on AMD/Intel. If you are using an **NVIDIA GPU**, you **must** uncomment (remove the `#`) these lines in `hyprland.conf`:
@@ -108,10 +117,8 @@ env = __GLX_VENDOR_LIBRARY_NAME,nvidia
 | `SUPER` + `RET` | **Terminal** | Launch Kitty |
 | `SUPER` + `D` | **Launcher** | Open Application Menu (Noctalia) |
 | `SUPER` + `E` | **Explorer** | Open Nemo File Manager |
-| `SUPER` + `Q` | **Kill** | Close focused window |
-| `SUPER` + `SHFT` + `Q` | **Exit** | Terminate Hyprland session |
-| `SUPER` + `CTRL` + `L` | **Lock** | Lock screen immediately (Hyprlock) |
-| `PrintScreen` | **Shot** | Select area for screenshot |
+| `SUPER` + `SHIFT` + `Q` | **Kill** | Close focused window |
+| `SUPER` + `SHIFT` + `S` | **Area screenshot** | Select area for screenshot |
 
 *Note: The `SUPER` key is usually the Windows logo key.*
 
@@ -119,8 +126,8 @@ env = __GLX_VENDOR_LIBRARY_NAME,nvidia
 
 ## 🛠️ 05. Troubleshooting
 
-*   **Black screen on login:** Double-check your monitor settings in `hyprland.conf` and ensure GPU drivers are installed.
-*   **Missing Panels:** Ensure Noctalia Shell is installed and the `qs` command is available in your PATH.
+*   **Black screen on login:** Double-check your monitor settings in `hyprland.lua` and ensure GPU drivers are installed.
+*   **Missing Panels:** Ensure Noctalia Shell is installed.
 *   **Broken Icons:** You likely missed the `ttf-0xproto-nerd` package.
 
 If you encounter a bug or have a suggestion, please open an **Issue** or leave a comment under the video. Enjoy!
